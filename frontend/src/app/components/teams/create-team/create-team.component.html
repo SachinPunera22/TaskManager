@@ -1,0 +1,87 @@
+<!-- create-team.component.html -->
+<div class="create-team-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Create New Team</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="teamForm" (ngSubmit)="onSubmit()">
+
+        <!-- Team Name -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Team Name</mat-label>
+          <input matInput formControlName="name" placeholder="Enter team name">
+          <mat-error *ngIf="teamForm.get('name')?.hasError('required')">
+            Team name is required
+          </mat-error>
+          <mat-error *ngIf="teamForm.get('name')?.hasError('minlength')">
+            Team name must be at least 3 characters
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Team Description -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Description</mat-label>
+          <textarea
+            matInput
+            formControlName="description"
+            placeholder="Enter team description"
+            rows="4"
+          ></textarea>
+          <mat-error *ngIf="teamForm.get('description')?.hasError('maxlength')">
+            Description cannot exceed 500 characters
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Team Leader Selection -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Team Leader</mat-label>
+          <mat-select formControlName="teamLeaderId">
+            <mat-option *ngFor="let leader of teamLeaders" [value]="leader._id">
+              {{ leader.username }} ({{ leader.role }})
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="teamForm.get('teamLeaderId')?.hasError('required')">
+            Team leader is required
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Team Members Multi-Selection -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Team Members</mat-label>
+          <mat-select formControlName="employeeIds" multiple>
+            <mat-option *ngFor="let employee of employees" [value]="employee._id">
+              {{ employee.username }} - {{ employee.email }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="teamForm.get('employeeIds')?.hasError('required')">
+            At least one team member is required
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <button
+            type="button"
+            mat-stroked-button
+            color="warn"
+            (click)="onCancel()"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            mat-raised-button
+            color="primary"
+            [disabled]="teamForm.invalid"
+          >
+            Create Team
+          </button>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

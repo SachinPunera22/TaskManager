@@ -1,0 +1,61 @@
+<div class="register-container">
+  <mat-card class="register-card">
+    <mat-card-title>Create an Account</mat-card-title>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <!-- Username Field -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Username</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="username"
+        />
+        <mat-error *ngIf="f['username'].errors?.['required']">Username is required</mat-error>
+        <mat-error *ngIf="f['username'].errors?.['minlength']">Must be at least 4 characters</mat-error>
+        <mat-error *ngIf="f['username'].errors?.['maxlength']">Max 20 characters allowed</mat-error>
+        <mat-error *ngIf="f['username'].errors?.['pattern']">
+          Only letters, numbers, dots, underscores, and hyphens allowed
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Email Field -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          type="email"
+          formControlName="email"
+        />
+        <mat-error *ngIf="f['email'].errors?.['required']">Email is required</mat-error>
+        <mat-error *ngIf="f['email'].errors?.['email']">Invalid email format</mat-error>
+      </mat-form-field>
+
+      <!-- Password Field -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          type="password"
+          formControlName="password"
+        />
+        <mat-error *ngIf="f['password'].errors?.['required']">Password is required</mat-error>
+        <mat-error *ngIf="f['password'].errors?.['minlength']">Must be at least 8 characters</mat-error>
+        <mat-error *ngIf="f['password'].errors?.['pattern']">
+          Must contain at least one uppercase, one lowercase, one number, and one special character
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Error Message -->
+      <p class="error-message" *ngIf="errorMsg">{{ errorMsg }}</p>
+
+      <!-- Submit Button -->
+      <div class="button-container">
+        <button mat-flat-button color="primary" type="submit" [disabled]="registerForm.invalid">
+          <mat-progress-spinner *ngIf="isLoading" diameter="20" mode="indeterminate"></mat-progress-spinner>
+          <span *ngIf="!isLoading">Register</span>
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

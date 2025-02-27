@@ -1,0 +1,65 @@
+<section class="min-vh-100 d-flex align-items-center">
+    <div class="container d-flex justify-content-center">
+
+        <form class="py-5 w-75" [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+            <h1 class="text-white text-start">Login:</h1>
+
+            <div class="d-flex flex-column gap-2 justify-content-center">
+
+                <div class="form-floating">
+                    <input 
+                        [ngClass]="{
+                            'bg-danger': formIsInvalid(loginForm.get('email'), 'required', 'email'),
+                            'bg-success': formIsValid(loginForm.get('email'))
+                        }" 
+                        formControlName="email" 
+                        type="email" 
+                        class="form-control" 
+                        id="floatingEmail" 
+                        placeholder="Email"
+                    >
+                    <label for="floatingEmail">Email</label>
+                </div>
+
+
+                <div class="form-floating">
+                    <input 
+                        [ngClass]="{
+                        'bg-danger': formIsInvalid(loginForm.get('password'), 'required','minlength'),
+                        'bg-success': formIsValid(loginForm.get('password'))
+                        }"
+                        formControlName="password" 
+                        type="password" 
+                        class="form-control" 
+                        id="floatingPassword" 
+                        placeholder="Password"
+                    >
+                    <label for="floatingPassword">Password</label>
+                </div>
+
+
+                @if(loginSuccess){
+                <p class="alert alert-success m-0">Login Success!, redirect to home..</p>
+                }
+
+                @if (loginErrorMsg && !loginSuccess) {
+                <p class="alert alert-danger m-0">{{loginErrorMsg}}</p>
+                }
+
+                <button [disabled]="loginForm.invalid || isLoading || loginSuccess" type="submit"
+                    class="btn btn-light m-0">
+                    @if (isLoading) {
+                    <div class="spinner-border text-dark" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    }@else {
+                    Login
+                    }
+                </button>
+
+            </div>
+            <p class="text-white mt-3">Don't have an account? <a routerLink="/register" class="text-white">Register Now</a></p>
+
+        </form>
+    </div>
+</section>

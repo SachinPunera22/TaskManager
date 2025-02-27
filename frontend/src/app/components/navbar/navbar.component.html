@@ -1,0 +1,32 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <div class="logo">
+      <a routerLink="/">Task Manager</a>
+    </div>
+
+    <ul class="nav-links">
+      <li [appRole]="['Manager']">
+        <a
+          routerLink="/users"
+          routerLinkActive="active"
+          (click)="setActiveLink('users')"
+          [class.active]="activeLink === 'users'"
+        >
+          Users
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/tasks"
+          routerLinkActive="active"
+          (click)="setActiveLink('tasks')"
+          [class.active]="activeLink === 'tasks'"
+        >
+          Tasks
+        </a>
+      </li>
+    </ul>
+
+    <button class="mx-5 logout-btn" (click)="logout()">Logout</button>
+  </div>
+</nav>

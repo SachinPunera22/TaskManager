@@ -1,0 +1,134 @@
+/* users.component.css */
+.users-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.table-container {
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.role-select {
+  width: 120px;
+}
+
+.role-tag {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: white;
+}
+
+.role-Employee {
+  background-color: #3498db;
+}
+
+.role-Team-Lead {
+  background-color: #f39c12;
+}
+
+.role-Manager {
+  background-color: #2ecc71;
+}
+
+td.mat-cell {
+  padding: 8px 16px;
+}
+
+/* Ensures the table is centered and responsive */
+.mat-table {
+  overflow-x: auto;
+  width: 100%;
+}
+
+/* Adjust role select field styling */
+::ng-deep .role-select .mat-mdc-form-field-infix {
+  width: auto;
+  min-height: 40px !important;
+  padding: 0 !important;
+}
+
+::ng-deep .role-select .mat-mdc-text-field-wrapper {
+  padding: 0 !important;
+}
+
+/* Make sure filter is responsive */
+@media (max-width: 600px) {
+  .header-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .action-buttons {
+    width: 100%;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+/* Full-page loader styles */
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
