@@ -3,7 +3,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, AbstractControl, ReactiveFormsModule, FormControl} from '@angular/forms';
 import {AuthService} from '../../core/services/auth.service';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {JsonPipe, NgClass, NgIf} from '@angular/common';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -12,7 +12,7 @@ import {MatCardModule} from '@angular/material/card';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, NgIf,MatFormFieldModule,MatProgressSpinnerModule,MatInputModule,MatCardModule ],
+  imports: [ReactiveFormsModule, NgIf,MatFormFieldModule,MatProgressSpinnerModule,MatInputModule,MatCardModule,NgClass,RouterLink ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })

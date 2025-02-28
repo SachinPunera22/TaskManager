@@ -1,61 +1,71 @@
-<div class="register-container">
-  <mat-card class="register-card">
-    <mat-card-title>Create an Account</mat-card-title>
+<section class="min-vh-100 d-flex align-items-center" style="background-color: #f8f9fa;">
+  <div class="container d-flex justify-content-center">
+    <div class="card p-4 shadow w-50 bg-white">
+      <h2 class="text-center">Create an Account</h2>
 
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <!-- Username Field -->
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Username</mat-label>
-        <input
-          matInput
-          type="text"
-          formControlName="username"
-        />
-        <mat-error *ngIf="f['username'].errors?.['required']">Username is required</mat-error>
-        <mat-error *ngIf="f['username'].errors?.['minlength']">Must be at least 4 characters</mat-error>
-        <mat-error *ngIf="f['username'].errors?.['maxlength']">Max 20 characters allowed</mat-error>
-        <mat-error *ngIf="f['username'].errors?.['pattern']">
-          Only letters, numbers, dots, underscores, and hyphens allowed
-        </mat-error>
-      </mat-form-field>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <!-- Username Field -->
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input
+            id="username"
+            type="text"
+            class="form-control"
+            [ngClass]="{'is-invalid': registerForm.get('username')?.invalid && registerForm.get('username')?.touched}"
+            formControlName="username"
+          />
+          <div class="invalid-feedback">
+            <span *ngIf="registerForm.get('username')?.hasError('required')">Username is required.</span>
+            <span *ngIf="registerForm.get('username')?.hasError('minlength')">Must be at least 4 characters.</span>
+            <span *ngIf="registerForm.get('username')?.hasError('maxlength')">Max 20 characters allowed.</span>
+            <span *ngIf="registerForm.get('username')?.hasError('pattern')">Only letters, numbers, dots, underscores, and hyphens allowed.</span>
+          </div>
+        </div>
 
-      <!-- Email Field -->
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Email</mat-label>
-        <input
-          matInput
-          type="email"
-          formControlName="email"
-        />
-        <mat-error *ngIf="f['email'].errors?.['required']">Email is required</mat-error>
-        <mat-error *ngIf="f['email'].errors?.['email']">Invalid email format</mat-error>
-      </mat-form-field>
+        <!-- Email Field -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            id="email"
+            type="email"
+            class="form-control"
+            [ngClass]="{'is-invalid': registerForm.get('email')?.invalid && registerForm.get('email')?.touched}"
+            formControlName="email"
+          />
+          <div class="invalid-feedback">
+            <span *ngIf="registerForm.get('email')?.hasError('required')">Email is required.</span>
+            <span *ngIf="registerForm.get('email')?.hasError('email')">Invalid email format.</span>
+          </div>
+        </div>
 
-      <!-- Password Field -->
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Password</mat-label>
-        <input
-          matInput
-          type="password"
-          formControlName="password"
-        />
-        <mat-error *ngIf="f['password'].errors?.['required']">Password is required</mat-error>
-        <mat-error *ngIf="f['password'].errors?.['minlength']">Must be at least 8 characters</mat-error>
-        <mat-error *ngIf="f['password'].errors?.['pattern']">
-          Must contain at least one uppercase, one lowercase, one number, and one special character
-        </mat-error>
-      </mat-form-field>
+        <!-- Password Field -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            id="password"
+            type="password"
+            class="form-control"
+            [ngClass]="{'is-invalid': registerForm.get('password')?.invalid && registerForm.get('password')?.touched}"
+            formControlName="password"
+          />
+          <div class="invalid-feedback">
+            <span *ngIf="registerForm.get('password')?.hasError('required')">Password is required.</span>
+            <span *ngIf="registerForm.get('password')?.hasError('minlength')">Must be at least 8 characters.</span>
+            <span *ngIf="registerForm.get('password')?.hasError('pattern')">Must contain at least one uppercase, one lowercase, one number, and one special character.</span>
+          </div>
+        </div>
 
-      <!-- Error Message -->
-      <p class="error-message" *ngIf="errorMsg">{{ errorMsg }}</p>
+        <!-- Error Message -->
+        <div *ngIf="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
 
-      <!-- Submit Button -->
-      <div class="button-container">
-        <button mat-flat-button color="primary" type="submit" [disabled]="registerForm.invalid">
-          <mat-progress-spinner *ngIf="isLoading" diameter="20" mode="indeterminate"></mat-progress-spinner>
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid || isLoading">
+          <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
           <span *ngIf="!isLoading">Register</span>
         </button>
-      </div>
-    </form>
-  </mat-card>
-</div>
+      </form>
+
+      <p class="text-center mt-3">Already have an account? <a routerLink="/login" class="text-primary">Login</a></p>
+    </div>
+  </div>
+</section>

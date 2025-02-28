@@ -8,6 +8,7 @@ import { authGuard } from './core/guards/auth.guard';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import {UsersComponent} from './components/users/users.component';
 import {TaskComponent} from './components/tasks/task/task.component';
+import {RoleGuard} from './core/guards/role.guard';
 
 export const routes: Routes = [
     {
@@ -21,7 +22,7 @@ export const routes: Routes = [
         path: "", component: MainLayoutComponent, canActivate: [authGuard], children: [
             { path: "", redirectTo: "tasks", pathMatch: 'full' },
             { path: "tasks", component: TaskComponent, title: "Tasks", },
-            { path: "users", component: UsersComponent, title: "Users", },
+            { path: "users", component: UsersComponent, canActivate:[RoleGuard], title: "Users", },
 
       ]
     },

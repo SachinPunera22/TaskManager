@@ -2,12 +2,12 @@ import {Component, inject} from '@angular/core';
 import {AuthService} from '../../core/services/auth.service';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router, RouterLink} from '@angular/router';
-import {NgClass} from '@angular/common';
+import {NgClass, NgIf} from '@angular/common';
 import {formIsInvalid, formIsValid} from '../../shared/utils/form-utils';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, RouterLink, NgClass],
+  imports: [ReactiveFormsModule, RouterLink, NgClass,NgIf],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -22,7 +22,8 @@ export class LoginComponent {
 
   loginForm: FormGroup = this._FromBuilder.group({
     email: [null, [Validators.required, Validators.email]],
-    password: [null, [Validators.required]],
+    password: [null, [Validators.required, Validators.minLength(8),
+    ]],
   });
 
   loginSubmit() {
@@ -36,6 +37,7 @@ export class LoginComponent {
           localStorage.setItem('userToken', token);
           localStorage.setItem('user', JSON.stringify(res.data.user));
           this.isLoading = false;
+          this._Router.navigate(['/tasks'])
 
         },
         error: (err) => {

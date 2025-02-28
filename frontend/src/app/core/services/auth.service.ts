@@ -19,8 +19,9 @@ export class AuthService {
     return this._HttpClient.post(`${baseUrl}/api/v1/auth/login`, userData);
   }
 
-  signOut() {
-    localStorage.clear();
+  getCurrentUser() {
+    return JSON.parse(localStorage.getItem('user') || '{}'); // Assuming user data is stored in localStorage
   }
+
 
 }

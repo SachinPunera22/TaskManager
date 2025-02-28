@@ -1,65 +1,61 @@
-<section class="min-vh-100 d-flex align-items-center">
-    <div class="container d-flex justify-content-center">
+<section class="min-vh-100 d-flex align-items-center" style="background-color: #f8f9fa;">
+  <div class="container d-flex justify-content-center">
+    <form class="py-5 px-4 shadow bg-white rounded w-50" [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+      <h1 class="text-dark text-start">Login</h1>
 
-        <form class="py-5 w-75" [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
-            <h1 class="text-white text-start">Login:</h1>
-
-            <div class="d-flex flex-column gap-2 justify-content-center">
-
-                <div class="form-floating">
-                    <input 
-                        [ngClass]="{
-                            'bg-danger': formIsInvalid(loginForm.get('email'), 'required', 'email'),
-                            'bg-success': formIsValid(loginForm.get('email'))
-                        }" 
-                        formControlName="email" 
-                        type="email" 
-                        class="form-control" 
-                        id="floatingEmail" 
-                        placeholder="Email"
-                    >
-                    <label for="floatingEmail">Email</label>
-                </div>
-
-
-                <div class="form-floating">
-                    <input 
-                        [ngClass]="{
-                        'bg-danger': formIsInvalid(loginForm.get('password'), 'required','minlength'),
-                        'bg-success': formIsValid(loginForm.get('password'))
+      <div class="d-flex flex-column gap-3">
+        <!-- Email Input -->
+        <div class="form-floating">
+          <input
+            [ngClass]="{
+                            'is-invalid': loginForm.get('email')?.invalid && loginForm.get('email')?.touched,
+                            'is-valid': loginForm.get('email')?.valid
                         }"
-                        formControlName="password" 
-                        type="password" 
-                        class="form-control" 
-                        id="floatingPassword" 
-                        placeholder="Password"
-                    >
-                    <label for="floatingPassword">Password</label>
-                </div>
+            formControlName="email"
+            type="email"
+            class="form-control"
+            id="floatingEmail"
+            placeholder="Email"
+          >
+          <label for="floatingEmail">Email</label>
+          <div class="invalid-feedback">
+            <span *ngIf="loginForm.get('email')?.hasError('required')">Email is required.</span>
+            <span *ngIf="loginForm.get('email')?.hasError('email')">Enter a valid email.</span>
+          </div>
+        </div>
 
+        <!-- Password Input -->
+        <div class="form-floating">
+          <input
+            [ngClass]="{
+                            'is-invalid': loginForm.get('password')?.invalid && loginForm.get('password')?.touched,
+                            'is-valid': loginForm.get('password')?.valid
+                        }"
+            formControlName="password"
+            type="password"
+            class="form-control"
+            id="floatingPassword"
+            placeholder="Password"
+          >
+          <label for="floatingPassword">Password</label>
+          <div class="invalid-feedback">
+            <span *ngIf="loginForm.get('password')?.hasError('required')">Password is required.</span>
+            <span *ngIf="loginForm.get('password')?.hasError('minlength')">Minimum 8 characters required.</span>
+          </div>
+        </div>
 
-                @if(loginSuccess){
-                <p class="alert alert-success m-0">Login Success!, redirect to home..</p>
-                }
+        <!-- Success & Error Messages -->
+        <div *ngIf="loginSuccess" class="alert alert-success m-0">Login successful! Redirecting...</div>
+        <div *ngIf="loginErrorMsg && !loginSuccess" class="alert alert-danger m-0">{{ loginErrorMsg }}</div>
 
-                @if (loginErrorMsg && !loginSuccess) {
-                <p class="alert alert-danger m-0">{{loginErrorMsg}}</p>
-                }
+        <!-- Submit Button -->
+        <button [disabled]="loginForm.invalid || isLoading || loginSuccess" type="submit" class="btn btn-primary">
+          <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+          <span *ngIf="!isLoading">Login</span>
+        </button>
+      </div>
 
-                <button [disabled]="loginForm.invalid || isLoading || loginSuccess" type="submit"
-                    class="btn btn-light m-0">
-                    @if (isLoading) {
-                    <div class="spinner-border text-dark" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-                    }@else {
-                    Login
-                    }
-                </button>
-
-            </div>
-            <p class="text-white mt-3">Don't have an account? <a routerLink="/register" class="text-white">Register Now</a></p>
-
-        </form>
-    </div>
+      <p class="text-dark mt-3">Don't have an account? <a routerLink="/register" class="text-primary">Register Now</a></p>
+    </form>
+  </div>
 </section>

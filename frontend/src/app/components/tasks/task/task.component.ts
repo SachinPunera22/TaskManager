@@ -39,7 +39,7 @@ import {TaskFormComponent} from '../task-form/task-form.component';
 })
 export class TaskComponent implements AfterViewInit {
   displayedColumns: string[] = ['name', 'description', 'status', 'assignedTo', 'createdBy', 'action'];
-  dataSource!: MatTableDataSource<Task>;
+  dataSource: MatTableDataSource<Task>=new MatTableDataSource();
   statuses: string[] = ['Pending', 'Completed', 'On hold'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
