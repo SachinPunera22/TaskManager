@@ -1,0 +1,46 @@
+# curl -X POST "http://localhost:3000/tasks"
+#     -H "Content-Type: application/json"
+#     -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+#     -d '{
+#           "name": "Task Title",
+#           "description": "This is a sample task description",
+#           "assignedTo": "USER_ID",
+#           "createdBy": "USER_ID",
+#           "status": "pending"
+#         }'
+POST http://localhost:3000/tasks
+Authorization: Bearer YOUR_ACCESS_TOKEN
+Content-Type: application/json
+
+{
+  "name": "Task Title",
+  "description": "This is a sample task description",
+  "assignedTo": "USER_ID",
+  "createdBy": "USER_ID",
+  "status": "pending"
+}
+
+###
+
+# curl -X POST "http://localhost:3000/tasks"
+#     -H "Content-Type: application/json"
+#     -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+#     -d '{
+#           "name": "Task Title",
+#           "description": "This is a sample task description",
+#           "assignedTo": "USER_ID",
+#           "createdBy": "USER_ID",
+#           "status": "pending"
+#         }'
+POST http://localhost:3000/api/v1/auth/login
+Content-Type: application/json
+
+{
+ "email": "sachin@gmail.com",
+  "password": "Rubi@123"
+}
+
+###
+
+
+

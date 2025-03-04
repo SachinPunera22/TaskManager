@@ -11,10 +11,8 @@ const verifyToken = async (req, res, next) => {
   const token = authHeader.split(" ")[1];
   try {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-    console.log('decodedToken:',decodedToken)
 
     const user = await User.findById(decodedToken._id);
-    console.log('user:',user)
 
     req.user =user
     next();
