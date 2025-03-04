@@ -11,12 +11,14 @@ exports.login = asyncHandler(async (req, res, next) => {
 
     const {email, password} = sanitizedBody;
 
-    const user = await User.findOne({email}).select("+password");
+    let user = await User.findOne({email}).select("+password");
 
     if (!user || !bcryptjs.compare(password, user.password)) {
         const error = AppError.create("Invalid Email or Password!", 401);
         return next(error);
     } else {
+
+        user = user.toObject();
         // Hide Password & rePassword from the response
         delete user.password;
         const token = await generateJWT({email: user.email, _id: user._id,role:user.role});
@@ -43,7 +45,7 @@ exports.register = asyncHandler(async (req, res, next) => {
 
     const hashedPassword = await bcryptjs.hash(password, 12);
 
-    const user = new User({
+    let user = new User({
         username, email, password: hashedPassword,
     });
 
@@ -51,6 +53,7 @@ exports.register = asyncHandler(async (req, res, next) => {
 
     await user.save();
 
+    user = user.toObject();
     // Hide Password & rePassword from the response
     delete user.password;
     const token = await generateJWT({email:user.email, _id:user._id, role:user.role});
